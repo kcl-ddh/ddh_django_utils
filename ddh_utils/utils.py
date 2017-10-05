@@ -2,7 +2,7 @@ from django.conf import settings
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
-def create_pagination (results, results_per_page, page_number):
+def create_pagination(results, results_per_page, page_number):
     """Returns a Paginator and Page for `results`.
 
     This function handles various possible problems with
@@ -29,7 +29,7 @@ def create_pagination (results, results_per_page, page_number):
     return paginator, page
 
 
-class PaginationDisplay (object):
+class PaginationDisplay:
 
     """Class for generating data from which a full set of links to a
     paginated set of items may be easily rendered.
@@ -64,10 +64,10 @@ class PaginationDisplay (object):
 
     """
 
-    def __init__ (self, querydict):
+    def __init__(self, querydict):
         self._qd = querydict.copy()
 
-    def _get_data (self, text, classes, number=None, title=None):
+    def _get_data(self, text, classes, number=None, title=None):
         """Returns a tuple of data representing an item to be displayed.
 
         :param text: the text of the item
@@ -87,7 +87,7 @@ class PaginationDisplay (object):
             url = '?{0}'.format(self._qd.urlencode())
         return (classes, url, text, title)
 
-    def generate_data (self, page):
+    def generate_data(self, page):
         """Returns a list of tuples representing the sequence of items to be
         displayed linking pages in the results, from the context of
         `page`.
@@ -151,5 +151,6 @@ class PaginationDisplay (object):
                 for number in page_range[-min(end, end_count):]:
                     data.append(self._get_data(number, [], number))
             # Add a link to the next page.
-            data.append(self._get_data('&raquo;', ['arrow'], current+1, 'Next'))
+            data.append(self._get_data('&raquo;', ['arrow'], current+1,
+                                       'Next'))
         return data

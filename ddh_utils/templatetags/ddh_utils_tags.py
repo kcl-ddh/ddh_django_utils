@@ -1,13 +1,13 @@
 from django import template
 
-from ddh_utils.utils import PaginationDisplay
+from ..utils import PaginationDisplay
 
 
 register = template.Library()
 
 
 @register.inclusion_tag('includes/pagination.html')
-def display_pagination (qd, page):
+def display_pagination(qd, page):
     """Includes a template displaying a full pagination listing in the
     context of `page`.
 
@@ -21,8 +21,9 @@ def display_pagination (qd, page):
     pd = PaginationDisplay(qd)
     return {'data': pd.generate_data(page)}
 
+
 @register.simple_tag
-def add_facet_link (qd, facet, value):
+def add_facet_link(qd, facet, value):
     """Returns a URL with `facet` and its `value` added to the query
     parameters in `qd`.
 
@@ -44,8 +45,9 @@ def add_facet_link (qd, facet, value):
         qd.setlist('selected_facets', facets)
     return '?{0}'.format(qd.urlencode())
 
+
 @register.simple_tag
-def remove_facet_link (qd, facet):
+def remove_facet_link(qd, facet):
     """Returns a URL with `facet` removed from the query parameters in
     `qd`.
 
